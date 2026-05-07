@@ -20,17 +20,18 @@
 bun add @postfmly/checkrate
 ```
 
+#### Peer Dependencies:
+
+- discord.js
+
 ### Use
 
 ```ts
 import { checkRate } from "@postfmly/checkrate"
 
-// checkRate(interaction: ChatInputCommandInteraction): Promise<boolean>
-
 if (await checkRate(interaction)) {
-  // rate limit exceeded
+  return // rate limit exceeded
 }
-
 ```
 
 ### Environment Variables
@@ -73,5 +74,5 @@ bun run build
 npm unpublish --force
 
 # specific version
-npm unpublish @postfmly/logoserver@[version] --force
+npm unpublish @postfmly/checkrate@[version] --force
 ```
