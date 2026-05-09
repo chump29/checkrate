@@ -27,10 +27,11 @@
     "build:copy": "cp -f LICENSE package.json README.md dist/",
     "build:dts": "bunx tsc --declaration --emitDeclarationOnly --outDir dist --noEmit false --skipLibCheck",
     "build:rm": "rm dist/index.test.d.ts",
-    "clean": "rimraf node_modules bun.lock .vscode dist",
-    "postinstall": "config-init",
+    "clean": "rimraf node_modules bun.lock .vscode dist coverage",
+    "clean:coverage": "rimraf coverage",
     "lint": "biome check --write --verbose .",
-    "test": "bun test --coverage --isolate"
+    "prepare": "config-init",
+    "test": "bun test --coverage --isolate --coverage-reporter=text --coverage-reporter=lcov"
   },
   "dependencies": {
     "@postfmly/logger": "^1.0.1",
@@ -39,7 +40,7 @@
   },
   "devDependencies": {
     "@nano-faker/number": "^1.0.1",
-    "@postfmly/config": "^1.2.14",
+    "@postfmly/config": "^1.2.15",
     "@types/ms": "^2.1.0",
     "rimraf": "^6.1.3"
   },
