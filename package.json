@@ -31,7 +31,7 @@
     "clean:coverage": "rimraf coverage",
     "lint": "biome check --write --verbose .",
     "prepare": "config-init",
-    "test": "bun test --coverage --isolate --coverage-reporter=text --coverage-reporter=lcov"
+    "test": "bun run clean:coverage && bun test --coverage --isolate --coverage-reporter=text --coverage-reporter=lcov"
   },
   "dependencies": {
     "@postfmly/logger": "^1.0.1",
