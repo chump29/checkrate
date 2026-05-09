@@ -6,8 +6,6 @@ import { id } from "@nano-faker/number"
 
 import { checkRate } from "./index.ts"
 
-const ID_LEN: number = 19
-
 let retVal: boolean = false
 
 afterEach((): void => {
@@ -20,6 +18,8 @@ describe("checkRate", (): void => {
       take: jest.fn().mockReturnValue(retVal)
     }
   })
+
+  const ID_LEN: number = 19
 
   const interaction: ChatInputCommandInteraction = {
     reply: jest.fn(),

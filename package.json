@@ -1,6 +1,6 @@
 {
   "name": "@postfmly/checkrate",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Discord rate limiter",
   "keywords": [
     "discord",
@@ -32,6 +32,9 @@
     "lint": "biome check --write --verbose .",
     "prepare": "config-init",
     "test": "bun run clean:coverage && bun test --coverage --isolate --coverage-reporter=text --coverage-reporter=lcov"
+  },
+  "overrides": {
+    "typescript": "^6.0.3"
   },
   "dependencies": {
     "@postfmly/logger": "^1.0.1",
