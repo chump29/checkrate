@@ -8,6 +8,6 @@ npm unpublish --force
 
 npm version --no-git-tag-version patch
 
-bun run build
+./build.sh
 
 npm publish ./dist

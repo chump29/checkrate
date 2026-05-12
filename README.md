@@ -22,6 +22,7 @@ bun add @postfmly/checkrate
 
 #### Peer Dependencies:
 
+- @postfmly/logger
 - discord.js
 
 ### Use
@@ -46,7 +47,7 @@ if (await checkRate(interaction)) {
 ### Testing
 
 ```bash
-bun run test
+./test.sh
 ```
 
 ---
@@ -54,7 +55,7 @@ bun run test
 ### Building
 
 ```bash
-bun run build
+./build.sh
 ```
 
 ---
