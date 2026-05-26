@@ -3,7 +3,7 @@ import { type ChatInputCommandInteraction, MessageFlags, type User } from "disco
 import { info } from "@postfmly/logger"
 
 import { RateLimiter } from "discord.js-rate-limiter"
-import ms, { type StringValue } from "ms"
+import { default as ms, type StringValue } from "ms"
 
 const DEBUG: boolean = Bun.env.IS_DEBUG === "true"
 

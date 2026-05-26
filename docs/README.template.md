@@ -52,6 +52,8 @@ if (await checkRate(interaction)) {
 bun run lint
 ```
 
+---
+
 ### Testing
 
 ```bash
