@@ -4,7 +4,7 @@ import { type ChatInputCommandInteraction, type User } from "discord.js"
 
 import { id } from "@nano-faker/number"
 
-import { checkRate } from "./index.ts"
+import { checkRate } from "../index.ts"
 
 let retVal: boolean = false
 
