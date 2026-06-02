@@ -2,7 +2,7 @@ import { afterEach, describe, expect, jest, mock, test } from "bun:test"
 
 import { type ChatInputCommandInteraction, type User } from "discord.js"
 
-import { id } from "@nano-faker/number"
+import { randSequence } from "@ngneat/falso"
 
 import { checkRate } from "../index.ts"
 
@@ -19,13 +19,14 @@ describe("checkRate", (): void => {
     }
   })
 
-  const ID_LEN: number = 19
-
   const interaction: ChatInputCommandInteraction = {
     reply: jest.fn(),
     user: {
       bot: false,
-      id: id(ID_LEN)
+      id: randSequence({
+        charType: "numeric",
+        size: 19
+      }).toString()
     } as User
   } as unknown as ChatInputCommandInteraction
 
