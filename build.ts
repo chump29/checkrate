@@ -6,21 +6,16 @@ import { error } from "@postfmly/logger"
 
 import { devDependencies, peerDependencies } from "./package.json" with { type: "json" }
 
-const externalDependencies: string[] = [
-  ...Object.keys(devDependencies),
-  ...Object.keys(peerDependencies)
-]
+const externalDependencies: string[] = [...Object.keys(devDependencies), ...Object.keys(peerDependencies)]
 
 await build({
+  entrypoints: ["./index.ts"],
   external: externalDependencies,
   footer: "// ♡ ᓚᘏᗢ ♡",
   metafile: true,
   minify: true,
   outdir: "./dist",
-  target: "bun",
-  entrypoints: [
-    "./index.ts"
-  ]
+  target: "bun"
 })
   .then((result: BuildOutput): BuildMetafile | undefined => {
     if (!result.success) {
@@ -29,7 +24,7 @@ await build({
     }
     return result.metafile
   })
-  .then(async (metafile: BuildMetafile | undefined): Promise<void> => {
+  .then((metafile: BuildMetafile | undefined): void => {
     if (metafile?.outputs) {
       for (const [path, output] of Object.entries(metafile.outputs)) {
         console.info(`${path}: ${output.bytes} bytes`)

@@ -2,7 +2,7 @@ import { afterEach, describe, expect, jest, mock, test } from "bun:test"
 
 import { type ChatInputCommandInteraction, type User } from "discord.js"
 
-import { randSequence } from "@ngneat/falso"
+import { simpleFaker as fake } from "@faker-js/faker"
 
 import { checkRate } from "../index.ts"
 
@@ -13,20 +13,17 @@ afterEach((): void => {
 })
 
 describe("checkRate", (): void => {
-  mock.module("discord.js-rate-limiter", (): unknown => {
-    return {
-      take: jest.fn().mockReturnValue(retVal)
-    }
-  })
+  mock.module("discord.js-rate-limiter", (): unknown => ({
+    take: jest.fn().mockReturnValue(retVal)
+  }))
+
+  const ID_LEN: number = 19
 
   const interaction: ChatInputCommandInteraction = {
     reply: jest.fn(),
     user: {
       bot: false,
-      id: randSequence({
-        charType: "numeric",
-        size: 19
-      }).toString()
+      id: fake.helpers.replaceSymbols("#").repeat(ID_LEN)
     } as User
   } as unknown as ChatInputCommandInteraction
 

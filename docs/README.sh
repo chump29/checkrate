@@ -12,9 +12,12 @@ _discord=$(jq -r '.peerDependencies."discord.js" // "❓"' ../package.json)
 export _discord
 echo -e " • discord.js: $_discord"
 
-_coverage=-1
-if [ -f "../coverage/lcov.info" ]; then
-  _coverage=$(bun run lcov-total ../coverage/lcov.info)
+echo -e "\n🧪 Running tests…"
+bun run test:coverage
+
+_coverage=0
+if [ -f "../tests/coverage/lcov.info" ]; then
+  _coverage=$(bun run --bun lcov-total ../tests/coverage/lcov.info)
 fi
 export _coverage
 echo -e "\n☂️  Coverage: $_coverage%"

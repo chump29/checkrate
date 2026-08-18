@@ -57,7 +57,14 @@ bun run lint
 ### Testing
 
 ```bash
+# tests only
 bun run test
+
+# with coverage
+bun run test:coverage
+
+# with coverage, verbose
+bun run test:full
 ```
 
 ---
