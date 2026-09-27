@@ -1,38 +1,23 @@
-import { type ChatInputCommandInteraction, MessageFlags, type User } from "discord.js"
-
 import { info } from "@postfmly/logger"
 
-import { RateLimiter } from "discord.js-rate-limiter"
-import { default as ms, type StringValue } from "ms"
+import { default as pluralize } from "@jarrodek/pluralize"
+import { RateLimiter } from "limiter"
 
-const DEBUG: boolean = Bun.env.IS_DEBUG === "true"
+import { env } from "./env.ts"
 
-const RATE_LIMIT: number = ms((Bun.env.RATE || "1s") as StringValue)
-const rateLimiter: RateLimiter = new RateLimiter(1, RATE_LIMIT)
+const { DEBUG, INTERVAL, RATE } = env as typeof env
 
-const checkRate = async (interaction: ChatInputCommandInteraction): Promise<boolean> => {
-  const user: User = interaction.user as User
+const limiter = new RateLimiter({ interval: INTERVAL, tokensPerInterval: RATE })
 
-  if (user.bot) {
-    return true
-  }
-
-  if (rateLimiter.take(user.id)) {
-    await interaction.reply({
-      content: "-# > Wait a few seconds and try again.",
-      flags: MessageFlags.Ephemeral
-    })
-    return true
-  }
-  return false
-}
+/**
+ * Check rate limit
+ * @function
+ * @returns {boolean} False if rate limit exceeded
+ */
+const checkRate = (): boolean => limiter.tryRemoveTokens(1)
 
 if (DEBUG) {
-  info(
-    `Limiting message rate to ${ms(RATE_LIMIT, {
-      long: true
-    })}`
-  )
+  info(`✋ Rate limit set to ${pluralize("request", RATE, true)} per ${INTERVAL}`)
 }
 
 export { checkRate }

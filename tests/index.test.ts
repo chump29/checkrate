@@ -1,45 +1,15 @@
-import { afterEach, describe, expect, jest, mock, test } from "bun:test"
-
-import { type ChatInputCommandInteraction, type User } from "discord.js"
-
-import { simpleFaker as fake } from "@faker-js/faker"
+import { describe, expect, test } from "bun:test"
 
 import { checkRate } from "../index.ts"
 
-let retVal: boolean = false
-
-afterEach((): void => {
-  retVal = false
-})
-
 describe("checkRate", (): void => {
-  mock.module("discord.js-rate-limiter", (): unknown => ({
-    take: jest.fn().mockReturnValue(retVal)
-  }))
-
-  const ID_LEN: number = 19
-
-  const interaction: ChatInputCommandInteraction = {
-    reply: jest.fn(),
-    user: {
-      bot: false,
-      id: fake.helpers.replaceSymbols("#").repeat(ID_LEN)
-    } as User
-  } as unknown as ChatInputCommandInteraction
-
   test("pass", (): void => {
-    expect(checkRate(interaction)).resolves.toBeFalse()
+    expect(checkRate()).toBeTrue()
   })
 
   test("fail", (): void => {
-    retVal = true
+    checkRate()
 
-    expect(checkRate(interaction)).resolves.toBeTrue()
-  })
-
-  test("bot", (): void => {
-    interaction.user.bot = true
-
-    expect(checkRate(interaction)).resolves.toBeTrue()
+    expect(checkRate()).toBeFalse()
   })
 })

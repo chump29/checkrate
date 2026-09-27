@@ -1,16 +1,13 @@
 #!/usr/bin/env -S bash -e
 
+export _user=chump29
+export _repo=checkrate
+
 echo -e "📌 Packages:\n"
 
-_bun=$(bun --version)
-bun pm pkg set packageManager="bun@$_bun" engines.bun="~$_bun" > /dev/null 2>&1
-_bun=~$_bun
+_bun=$(bun -v)
 export _bun
 echo -e " • Bun: $_bun"
-
-_discord=$(jq -r '.peerDependencies."discord.js" // "❓"' ../package.json)
-export _discord
-echo -e " • discord.js: $_discord"
 
 echo -e "\n🧪 Running tests…"
 bun run test:coverage

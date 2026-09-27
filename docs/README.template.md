@@ -1,16 +1,17 @@
 # @postfmly/checkrate
 
-### Discord rate limiter <!-- markdownlint-disable MD001 -->
+### Rate limiter <!-- markdownlint-disable MD001 -->
 
 ---
 
-![Bun](https://img.shields.io/badge/Bun-$_bun-informational?style=plastic&logo=bun "Bun") &nbsp;
-![discord.js](https://img.shields.io/badge/discord.js-$_discord-informational?style=plastic&logo=discorddotjs "discord.js")
+![Bun](https://img.shields.io/badge/Bun-$_bun-informational?style=plastic&logo=bun "Bun")
 
-![CodeQL](https://github.com/chump29/checkrate/workflows/CodeQL/badge.svg "CodeQL") &nbsp;
+![CodeQL](https://github.com/$_user/$_repo/workflows/CodeQL/badge.svg "CodeQL") &nbsp;
 ![Coverage](https://img.shields.io/badge/Coverage-100%25-success?style=plastic&logo=jest "Coverage")
 
-![License](https://img.shields.io/github/license/chump29/checkrate?style=plastic&color=blueviolet&label=License&logo=gplv3 "GPLv3")
+![NO AI](https://img.shields.io/badge/NO-AI-orange?style=plastic "NO AI") &nbsp;
+![License](https://img.shields.io/github/license/$_user/$_repo?style=plastic&color=blueviolet&label=License&logo=gplv3 "GPLv3") &nbsp; <!-- markdownlint-disable MD013 -->
+![CVE Scan](https://img.shields.io/badge/CVE%20Scan-Pass-success?style=plastic&logo=owasp "CVE Scan")
 
 ---
 
@@ -23,7 +24,6 @@ bun add @postfmly/checkrate
 #### Peer Dependencies:
 
 - @postfmly/logger
-- discord.js
 
 ---
 
@@ -32,17 +32,16 @@ bun add @postfmly/checkrate
 ```ts
 import { checkRate } from "@postfmly/checkrate"
 
-if (await checkRate(interaction)) {
-  return // rate limit exceeded
-}
+return checkRate() // false if rate limit exceeded
 ```
 
 ### Environment Variables
 
-| Description |   Key    |     Value      |
-|:-----------:|:--------:|:--------------:|
-|    Debug    | IS_DEBUG | true/**false** |
-| Rate Limit  |   RATE   |       1s       |
+|  📝 Description   | 📌 Variable |    {...} Value    |
+|:-----------------:|:-----------:|:-----------------:|
+|       Debug       |    DEBUG    |  true/**false**   |
+|     Interval      |  INTERVAL   | **second**/minute |
+| Rate Per Interval |    RATE     |         1         |
 
 ---
 
@@ -60,30 +59,23 @@ bun run lint
 # tests only
 bun run test
 
-# with coverage
+# tests only, verbose
+bun run test:full
+
+# tests with coverage
 bun run test:coverage
 
-# with coverage, verbose
-bun run test:full
+# tests with coverage, verbose
+bun run test:coverage:full
 ```
 
 ---
 
-### Building
-
-#### README:
+### README
 
 ```bash
 ./docs.sh
 ```
-
-#### Package:
-
-```bash
-./build.sh
-```
-
-###### *NOTE: Includes linting, testing, and building README*
 
 ---
 
