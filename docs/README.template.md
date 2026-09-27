@@ -26,18 +26,18 @@ bun add @postfmly/checkrate
 ### Use
 
 ```ts
-import { checkRate } from "@postfmly/checkrate"
+import { allow } from "@postfmly/checkrate"
 
-return checkRate() // false if rate limit exceeded
+return allow() // false if rate limit exceeded
 ```
 
 ### Environment Variables
 
-|  📝 Description   | 📌 Variable |    {...} Value    |
-|:-----------------:|:-----------:|:-----------------:|
-|       Debug       |    DEBUG    |  true/**false**   |
-|     Interval      |  INTERVAL   | **second**/minute |
-| Rate Per Interval |    RATE     |         1         |
+|     📝 Description      | 📌 Variable |  {...} Value   |
+|:-----------------------:|:-----------:|:--------------:|
+|          Debug          |    DEBUG    | true/**false** |
+| Interval *(in seconds)* |  INTERVAL   |       1        |
+|    Rate Per Interval    |    RATE     |       1        |
 
 ---
 

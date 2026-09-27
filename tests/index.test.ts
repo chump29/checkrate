@@ -1,15 +1,13 @@
 import { describe, expect, test } from "bun:test"
 
-import { checkRate } from "../index.ts"
+import { allow } from "../index.ts"
 
 describe("checkRate", (): void => {
   test("pass", (): void => {
-    expect(checkRate()).toBeTrue()
+    expect(allow()).toBeTrue()
   })
 
   test("fail", (): void => {
-    checkRate()
-
-    expect(checkRate()).toBeFalse()
+    expect(allow()).toBeFalse() // * NOTE: Test is fast. Counts as second request within 1 second.
   })
 })
