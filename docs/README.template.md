@@ -21,10 +21,6 @@
 bun add @postfmly/checkrate
 ```
 
-#### Peer Dependencies:
-
-- @postfmly/logger
-
 ---
 
 ### Use
