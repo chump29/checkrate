@@ -13,7 +13,8 @@ interface IBucketConfig {
   /** Window size, in seconds
    * @default 1 */
   readonly INTERVAL: Optional<number>
-  /** Maximum number of request per {@link INTERVAL} */
+  /** Maximum number of request per {@link INTERVAL}
+   * @default 1 */
   readonly RATE: Optional<number>
 }
 
@@ -29,7 +30,7 @@ class Bucket implements IBucketConfig {
   private count: number
   private time: dayjs.Dayjs
 
-  constructor(config: IBucketConfig) {
+  constructor(config: IBucketConfig = {} as IBucketConfig) {
     this.DEBUG = parse(optional(pipe(unknown(), toBoolean()), false), config.DEBUG)
     this.INTERVAL = parse(optional(pipe(number(), integer()), 1), config.INTERVAL)
     this.RATE = parse(optional(pipe(number(), integer()), 1), config.RATE)

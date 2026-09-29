@@ -1,8 +1,8 @@
 import { describe, expect, test } from "bun:test"
 
-import { Bucket, type IBucketConfig } from "../index.ts"
+import { Bucket } from "../index.ts"
 
-const bucket: Bucket = new Bucket({ RATE: 1 } as IBucketConfig)
+const bucket: Bucket = new Bucket()
 
 describe("checkRate", (): void => {
   test("pass", (): void => {
