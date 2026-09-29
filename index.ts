@@ -89,6 +89,7 @@ class Bucket implements IBucketConfig {
   }
 
   /** Check if request is allowed
+   * @param {string} username The username/key
    * @returns {boolean} True if request is allowed, false if limit has been reached */
   allow = (username: string): boolean => {
     let user: Optional<IUser> = this.users.get(username)
