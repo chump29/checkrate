@@ -18,6 +18,11 @@ interface IBucketConfig {
   readonly RATE: Optional<number>
 }
 
+interface IUser {
+  count: number
+  time: dayjs.Dayjs
+}
+
 /** Limit usage to {@link RATE} request(s) per {@link INTERVAL} second(s)
  * @summary Defaults to 1 request per second */
 class Bucket implements IBucketConfig {
@@ -27,8 +32,16 @@ class Bucket implements IBucketConfig {
 
   private readonly INTERVAL_MS: number
   private readonly LIMIT: number
-  private count: number
-  private time: dayjs.Dayjs
+
+  private readonly users: Map<string, IUser> = new Map<string, IUser>()
+
+  private readonly timer: Timer
+
+  private readonly CLEAN_MINS: number = 1
+  private readonly CLEAN_SCALE: number = 2
+
+  private readonly STALE_MINS: number = 5
+  private readonly STALE_SCALE: number = 5
 
   /** Bucket constructor
    * @param {IBucketConfig} [config] The configuration
@@ -40,8 +53,12 @@ class Bucket implements IBucketConfig {
 
     this.INTERVAL_MS = ms(`${this.INTERVAL}s`) as number
     this.LIMIT = this.RATE
-    this.count = this.LIMIT
-    this.time = dayjs()
+
+    this.timer = setInterval(
+      (): void => this.clean(),
+      Math.max(ms(`${this.CLEAN_MINS}m`) as number, this.INTERVAL_MS * this.CLEAN_SCALE)
+    )
+    this.timer.unref()
 
     if (this.DEBUG) {
       info(
@@ -50,30 +67,47 @@ class Bucket implements IBucketConfig {
     }
   }
 
-  private fill(): void {
-    const elapsed: number = dayjs().diff(this.time, "milliseconds")
+  private fill(user: IUser): void {
+    const elapsed: number = dayjs().diff(user.time, "milliseconds")
     if (elapsed >= this.INTERVAL_MS) {
       const intervals: number = Math.floor(elapsed / this.INTERVAL_MS)
 
-      this.count = Math.min(this.LIMIT, this.count + intervals * this.RATE)
+      user.count = Math.min(this.LIMIT, user.count + intervals * this.RATE)
 
-      this.time = this.time.add(intervals * this.INTERVAL_MS, "milliseconds")
+      user.time = user.time.add(intervals * this.INTERVAL_MS, "milliseconds")
+    }
+  }
+
+  private clean(): void {
+    const now: dayjs.Dayjs = dayjs()
+
+    for (const [username, user] of this.users.entries()) {
+      if (now.diff(user.time) > Math.max(ms(`${this.STALE_MINS}m`) as number, this.INTERVAL_MS * this.STALE_SCALE)) {
+        this.users.delete(username)
+      }
     }
   }
 
   /** Check if request is allowed
    * @returns {boolean} True if request is allowed, false if limit has been reached */
-  allow = (): boolean => {
-    this.fill()
+  allow = (username: string): boolean => {
+    let user: Optional<IUser> = this.users.get(username)
+    if (!user) {
+      user = { count: this.LIMIT, time: dayjs() } satisfies IUser
 
-    if (this.count >= 1) {
-      this.count -= 1
+      this.users.set(username, user)
+    }
+
+    this.fill(user)
+
+    if (user.count >= 1) {
+      user.count -= 1
 
       return true
     }
 
     if (this.DEBUG) {
-      error("❌ Rate limit exceeded")
+      error(`❌ Rate limit exceeded for ${username}`)
     }
 
     return false

@@ -1,6 +1,6 @@
 {
   "name": "@postfmly/checkrate",
-  "version": "1.4.2",
+  "version": "2.0.0",
   "description": "Rate limiter",
   "keywords": [
     "rate",
