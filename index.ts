@@ -30,6 +30,9 @@ class Bucket implements IBucketConfig {
   private count: number
   private time: dayjs.Dayjs
 
+  /** Bucket constructor
+   * @param {IBucketConfig} [config] The configuration
+   * @default {} */
   constructor(config: IBucketConfig = {} as IBucketConfig) {
     this.DEBUG = parse(optional(pipe(unknown(), toBoolean()), false), config.DEBUG)
     this.INTERVAL = parse(optional(pipe(number(), integer()), 1), config.INTERVAL)
