@@ -1,6 +1,6 @@
 {
   "name": "@postfmly/checkrate",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Rate limiter",
   "keywords": [
     "rate",
@@ -28,7 +28,7 @@
     "lint:env": "bun run --bun dotenv-linter check .",
     "lint:spell": "bun run --bun cspell --dot --verbose .",
     "lint:ts": "bun run --bun tsc",
-    "prepare": "husky",
+    "prepare": "bun run --bun husky",
     "scan": "bun audit && bun run --bun cve-lite --check-overrides",
     "scan:e18e": "bunx --bun @e18e/cli analyze",
     "test": "bun test --isolate --dots --bail",
@@ -38,8 +38,7 @@
     "updates": "bunx --bun npm-check-updates --dep overrides,prod,dev --cooldown 0 --install never --packageManager bun --peer"
   },
   "lint-staged": {
-    "*.{json,ts}": "bun run --bun biome ci --no-errors-on-unmatched --error-on-warnings",
-    ".env*": "bun run --bun dotenv-linter check"
+    "*.{json,ts}": "bun run --bun biome ci --no-errors-on-unmatched --error-on-warnings"
   },
   "overrides": {
     "@biomejs/biome": "2.5.14",
@@ -57,11 +56,12 @@
     "@jarrodek/pluralize": "^1.0.2",
     "@lukeed/ms": "^2.0.2",
     "@postfmly/logger": "^1.0.34",
+    "@postfmly/types": "^1.0.3",
     "dayjs": "^1.11.23",
-    "envalid": "^8.2.0"
+    "valibot": "^1.5.0"
   },
   "devDependencies": {
-    "@postfmly/config": "^1.4.79",
+    "@postfmly/config": "^1.5.0",
     "bunup": "^0.16.32",
     "husky": "^9.1.7",
     "lcov-total": "^2.1.1",
@@ -71,5 +71,10 @@
   "engines": {
     "bun": "^1.4.2"
   },
-  "engineStrict": true
+  "engineStrict": true,
+  "trustedDependencies": [
+    "@postfmly/config",
+    "@postfmly/logger",
+    "@postfmly/types"
+  ]
 }

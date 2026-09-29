@@ -1,48 +1,65 @@
 import { error, info } from "@postfmly/logger"
+import { type Optional } from "@postfmly/types"
 
 import { default as pluralize } from "@jarrodek/pluralize"
 import { parse as ms } from "@lukeed/ms"
 import { default as dayjs } from "dayjs"
+import { integer, number, optional, parse, pipe, toBoolean, unknown } from "valibot"
 
-import { env } from "./env.ts"
-
-const { DEBUG, INTERVAL, RATE } = env as typeof env
-
-interface BucketConfig {
-  readonly interval: number
-  readonly rate: number
+interface IBucketConfig {
+  /** Show debug logging
+   * @default false */
+  readonly DEBUG: Optional<boolean>
+  /** Window size, in seconds
+   * @default 1 */
+  readonly INTERVAL: Optional<number>
+  /** Maximum number of request per {@link INTERVAL} */
+  readonly RATE: Optional<number>
 }
 
-// * Limits usage to RATE request(s) per INTERVAL second(s)
-class Bucket implements BucketConfig {
-  readonly interval: number
-  readonly rate: number
+/** Limit usage to {@link RATE} request(s) per {@link INTERVAL} second(s)
+ * @summary Defaults to 1 request per second */
+class Bucket implements IBucketConfig {
+  readonly DEBUG: boolean
+  readonly INTERVAL: number
+  readonly RATE: number
 
-  private readonly limit: number
+  private readonly INTERVAL_MS: number
+  private readonly LIMIT: number
   private count: number
   private time: dayjs.Dayjs
 
-  constructor(config: BucketConfig) {
-    this.interval = ms(`${config.interval}s`) as number
-    this.rate = config.rate
+  constructor(config: IBucketConfig) {
+    this.DEBUG = parse(optional(pipe(unknown(), toBoolean()), false), config.DEBUG)
+    this.INTERVAL = parse(optional(pipe(number(), integer()), 1), config.INTERVAL)
+    this.RATE = parse(optional(pipe(number(), integer()), 1), config.RATE)
 
-    this.limit = config.rate
-    this.count = this.limit
+    this.INTERVAL_MS = ms(`${this.INTERVAL}s`) as number
+    this.LIMIT = this.RATE
+    this.count = this.LIMIT
     this.time = dayjs()
+
+    if (this.DEBUG) {
+      info(
+        `✋ Rate limit set to ${pluralize("request", this.RATE, true)} per ${pluralize("second", this.INTERVAL, true)}`
+      )
+    }
   }
 
   private fill(): void {
     const elapsed: number = dayjs().diff(this.time, "milliseconds")
-    if (elapsed >= this.interval) {
-      const intervals: number = Math.floor(elapsed / this.interval)
+    if (elapsed >= this.INTERVAL_MS) {
+      const intervals: number = Math.floor(elapsed / this.INTERVAL_MS)
 
-      this.count = Math.min(this.limit, this.count + intervals * this.rate)
+      this.count = Math.min(this.LIMIT, this.count + intervals * this.RATE)
 
-      this.time = this.time.add(intervals * this.interval, "milliseconds")
+      this.time = this.time.add(intervals * this.INTERVAL_MS, "milliseconds")
     }
   }
 
-  allow(): boolean {
+  /** Check if request is allowed
+   * @returns {boolean} True if request is allowed, false if limit has been reached */
+  allow = (): boolean => {
     this.fill()
 
     if (this.count >= 1) {
@@ -51,7 +68,7 @@ class Bucket implements BucketConfig {
       return true
     }
 
-    if (DEBUG) {
+    if (this.DEBUG) {
       error("❌ Rate limit exceeded")
     }
 
@@ -59,10 +76,4 @@ class Bucket implements BucketConfig {
   }
 }
 
-if (DEBUG) {
-  info(`✋ Rate limit set to ${pluralize("request", RATE, true)} per ${pluralize("second", INTERVAL, true)}`)
-}
-
-const bucket: Bucket = new Bucket({ interval: INTERVAL, rate: RATE } as BucketConfig)
-
-export const allow = (): boolean => bucket.allow()
+export { Bucket, type IBucketConfig }

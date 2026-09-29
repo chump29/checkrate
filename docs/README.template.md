@@ -26,18 +26,22 @@ bun add @postfmly/checkrate
 ### Use
 
 ```ts
-import { allow } from "@postfmly/checkrate"
+import { Bucket, type IBucketConfig } from "@postfmly/checkrate"
 
-return allow() // false if rate limit exceeded
+const bucket: Bucket = new Bucket({ DEBUG: false, INTERVAL: 1, RATE: 1 } satisfies IBucketConfig)
+// or
+const bucket = new Bucket() // uses defaults
+
+const result: string = bucket.allow() ? "request successful" : "rate limit exceeded"
 ```
 
 ### Environment Variables
 
-|     📝 Description      | 📌 Variable |  {...} Value   |
-|:-----------------------:|:-----------:|:--------------:|
-|          Debug          |    DEBUG    | true/**false** |
-| Interval *(in seconds)* |  INTERVAL   |       1        |
-|    Rate Per Interval    |    RATE     |       1        |
+|       📝 Description       | 📌 Variable |  {...} Value   |
+|:--------------------------:|:-----------:|:--------------:|
+|           Debug            |    DEBUG    | true/**false** |
+| Window Size *(in seconds)* |  INTERVAL   |       1        |
+|   Requests Per Interval    |    RATE     |       1        |
 
 ---
 
