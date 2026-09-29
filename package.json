@@ -1,6 +1,6 @@
 {
   "name": "@postfmly/checkrate",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Rate limiter",
   "keywords": [
     "rate",
@@ -61,7 +61,7 @@
     "valibot": "^1.5.0"
   },
   "devDependencies": {
-    "@postfmly/config": "^1.5.0",
+    "@postfmly/config": "^1.5.1",
     "bunup": "^0.16.32",
     "husky": "^9.1.7",
     "lcov-total": "^2.1.1",
@@ -71,10 +71,5 @@
   "engines": {
     "bun": "^1.4.2"
   },
-  "engineStrict": true,
-  "trustedDependencies": [
-    "@postfmly/config",
-    "@postfmly/logger",
-    "@postfmly/types"
-  ]
+  "engineStrict": true
 }

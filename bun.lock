@@ -13,7 +13,7 @@
         "valibot": "^1.5.0",
       },
       "devDependencies": {
-        "@postfmly/config": "^1.5.0",
+        "@postfmly/config": "^1.5.1",
         "bunup": "^0.16.32",
         "husky": "^9.1.7",
         "lcov-total": "^2.1.1",
@@ -21,11 +21,6 @@
       },
     },
   },
-  "trustedDependencies": [
-    "@postfmly/logger",
-    "@postfmly/types",
-    "@postfmly/config",
-  ],
   "overrides": {
     "@biomejs/biome": "2.5.14",
     "@types/bun": "1.4.2",
@@ -323,7 +318,7 @@
 
     "@oxc-transform/binding-win32-x64-msvc": ["@oxc-transform/binding-win32-x64-msvc@0.93.0", "https://npm.postfmly.com/@oxc-transform/binding-win32-x64-msvc/-/binding-win32-x64-msvc-0.93.0.tgz", { "os": "win32", "cpu": "x64" }, "sha512-6QN3DEaEw3eWioWEFRgNsTvYq8czYSnpkjB2za+/WdLN0g5FzOl2ZEfNiPrBWIPnSmjUmDWtWVWcSjwY7fX5/Q=="],
 
-    "@postfmly/config": ["@postfmly/config@1.5.0", "https://npm.postfmly.com/@postfmly/config/-/config-1.5.0.tgz", { "dependencies": { "@biomejs/biome": "^2.5.14", "@types/bun": "^1.4.2", "@types/node": "^26.6.3", "cspell": "^10.3.5", "cve-lite-cli": "^1.37.0", "globals": "^17.12.0", "typescript": "^7.0.2" }, "bin": { "link-configs": "bin/link-configs" } }, "sha512-Ymct30T8GAOPr1h7H3c//azWmb9hbYWHFsPvKa4BGiJ4GpeebIbydW5NftR6AwENRSI71tmaFguYVgkA+Q3+aQ=="],
+    "@postfmly/config": ["@postfmly/config@1.5.1", "https://npm.postfmly.com/@postfmly/config/-/config-1.5.1.tgz", { "dependencies": { "@biomejs/biome": "^2.5.14", "@types/bun": "^1.4.2", "@types/node": "^26.6.3", "cspell": "^10.3.5", "cve-lite-cli": "^1.37.0", "globals": "^17.12.0", "typescript": "^7.0.2" }, "bin": { "link-configs": "bin/link-configs" } }, "sha512-aFkru7DxTcdaTbJPh1MJzTzL1dduJ56V9IE4VAehrGJTfxTVbkGaAQSBPVH2raaiDJALOfGwaYfRhsa6QkoO5g=="],
 
     "@postfmly/logger": ["@postfmly/logger@1.0.34", "https://npm.postfmly.com/@postfmly/logger/-/logger-1.0.34.tgz", { "dependencies": { "browser-or-node": "^3.0.0", "dayjs": "^1.11.23", "picocolors": "^1.1.1" } }, "sha512-M7z4krHN6A7tUQlMaZhm9xjN99iY9+KEzK/w+MwWznrTcBvxfFVtpjdhHQqoOiBygdel5hdSl5jl9FOd3naQlg=="],
 
