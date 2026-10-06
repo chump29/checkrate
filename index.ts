@@ -44,8 +44,7 @@ class Bucket implements IBucketConfig {
   private readonly STALE_SCALE: number = 5
 
   /** Bucket constructor
-   * @param {IBucketConfig} [config] The configuration
-   * @default {} */
+   * @param config The configuration */
   constructor(config: IBucketConfig = {} as IBucketConfig) {
     this.DEBUG = parse(optional(pipe(unknown(), toBoolean()), false), config.DEBUG)
     this.INTERVAL = parse(optional(pipe(number(), integer()), 1), config.INTERVAL)
@@ -89,8 +88,8 @@ class Bucket implements IBucketConfig {
   }
 
   /** Check if request is allowed
-   * @param {string} username The username/key
-   * @returns {boolean} True if request is allowed, false if limit has been reached */
+   * @param username The username/key
+   * @returns True if request is allowed, false if limit has been reached */
   allow = (username: string): boolean => {
     let user: Optional<IUser> = this.users.get(username)
     if (!user) {
