@@ -45,17 +45,17 @@ class Bucket implements IBucketConfig {
 
   /** Bucket constructor
    * @param config The configuration */
-  constructor(config: IBucketConfig = {} as IBucketConfig) {
+  constructor(config: Partial<IBucketConfig> = {}) {
     this.DEBUG = parse(optional(pipe(unknown(), toBoolean()), false), config.DEBUG)
     this.INTERVAL = parse(optional(pipe(number(), integer()), 1), config.INTERVAL)
     this.RATE = parse(optional(pipe(number(), integer()), 1), config.RATE)
 
-    this.INTERVAL_MS = ms(`${this.INTERVAL}s`) as number
+    this.INTERVAL_MS = ms(`${this.INTERVAL}s`)
     this.LIMIT = this.RATE
 
     this.timer = setInterval(
       (): void => this.clean(),
-      Math.max(ms(`${this.CLEAN_MINS}m`) as number, this.INTERVAL_MS * this.CLEAN_SCALE)
+      Math.max(ms(`${this.CLEAN_MINS}m`), this.INTERVAL_MS * this.CLEAN_SCALE)
     )
     this.timer.unref()
 
@@ -81,7 +81,7 @@ class Bucket implements IBucketConfig {
     const now: dayjs.Dayjs = dayjs()
 
     for (const [username, user] of this.users.entries()) {
-      if (now.diff(user.time) > Math.max(ms(`${this.STALE_MINS}m`) as number, this.INTERVAL_MS * this.STALE_SCALE)) {
+      if (now.diff(user.time) > Math.max(ms(`${this.STALE_MINS}m`), this.INTERVAL_MS * this.STALE_SCALE)) {
         this.users.delete(username)
       }
     }

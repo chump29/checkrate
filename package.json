@@ -1,6 +1,6 @@
 {
   "name": "@postfmly/checkrate",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Rate limiter",
   "keywords": [
     "rate",
@@ -22,10 +22,9 @@
     "build": "bun run --bun bunup",
     "deps": "bunx --bun depcheck --ignores=\"@postfmly/config,@types/*,bun:*,lcov-total\"",
     "preinstall": "bunx --bun only-allow bun",
-    "lint": "bun run lint:spell && bun run lint:biome && bun run lint:env && bun run lint:ts",
+    "lint": "bun run lint:spell && bun run lint:biome && bun run lint:ts",
     "lint:biome": "bun run --bun biome check --write --verbose --reporter=default --reporter=github --error-on-warnings",
-    "lint:env": "bun run --bun dotenv-linter check .",
-    "lint:spell": "bun run --bun cspell --dot --verbose .",
+    "lint:spell": "bun run --bun cspell --dot .",
     "lint:ts": "bun check",
     "prepare": "bun run --bun husky",
     "scan": "bun run scan:audit && bun run scan:cve && bun run scan:e18e",
@@ -42,25 +41,19 @@
     "*.{json,ts}": "bun run --bun biome ci --no-errors-on-unmatched --error-on-warnings"
   },
   "overrides": {
-    "@biomejs/biome": "2.5.15",
-    "@types/bun": "1.4.2",
-    "@types/node": "26.6.4",
     "chalk": "6.0.1",
-    "cspell": "10.3.6",
-    "globals": "17.13.0",
-    "ini": "7.0.0",
-    "strip-json-comments": "5.0.3"
+    "undici-types": "8.12.3"
   },
   "dependencies": {
     "@jarrodek/pluralize": "^1.0.2",
     "@lukeed/ms": "^2.0.2",
-    "@postfmly/logger": "^1.1.9",
-    "@postfmly/types": "^1.0.7",
+    "@postfmly/logger": "^1.1.13",
+    "@postfmly/types": "^1.0.9",
     "dayjs": "^1.11.23",
     "valibot": "^1.5.0"
   },
   "devDependencies": {
-    "@postfmly/config": "^1.6.3",
+    "@postfmly/config": "^1.6.11",
     "bunup": "^0.16.32",
     "husky": "^9.1.7",
     "lcov-total": "^2.1.1",
@@ -70,5 +63,8 @@
   "engines": {
     "bun": "^1.4.3"
   },
-  "engineStrict": true
+  "engineStrict": true,
+  "patchedDependencies": {
+    "@lukeed/ms@2.0.2": "patches/@lukeed%2Fms@2.0.2.patch"
+  }
 }

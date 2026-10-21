@@ -38,9 +38,9 @@ const result: string = bucket.allow() ? "request successful" : "rate limit excee
 ### Environment Variables
 
 |       📝 Description       | 📌 Variable |  {...} Value   |
-|:--------------------------:|:-----------:|:--------------:|
+| :------------------------: | :---------: | :------------: |
 |           Debug            |    DEBUG    | true/**false** |
-| Window Size *(in seconds)* |  INTERVAL   |       1        |
+| Window Size _(in seconds)_ |  INTERVAL   |       1        |
 |   Requests Per Interval    |    RATE     |       1        |
 
 ---
@@ -87,11 +87,11 @@ bun run test:coverage:full
 ./publish.sh
 ```
 
-###### *NOTES:*
+###### _NOTES:_
 
-- ###### *Includes building package*
+- ###### _Includes building package_
 
-- ###### *Increments `patch` version in `package.json`*
+- ###### _Increments `patch` version in `package.json`_
 
 #### Unpublish:
 
