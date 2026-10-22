@@ -2,7 +2,7 @@ import { describe, expect, spyOn, test } from "bun:test"
 
 import { Bucket } from "../index.ts"
 
-// suppress console messages
+// * NOTE: suppress console output
 spyOn(console, "info").mockImplementation((): void => undefined)
 spyOn(console, "error").mockImplementation((): void => undefined)
 

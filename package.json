@@ -1,6 +1,6 @@
 {
   "name": "@postfmly/checkrate",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Rate limiter",
   "keywords": [
     "rate",
@@ -29,10 +29,10 @@
     "lint:spell": "bun run --bun cspell --dot .",
     "lint:ts": "bun check",
     "prepare": "bun run --bun husky",
-    "scan": "bun run scan:audit && bun run scan:cve && bun run scan:e18e",
-    "scan:audit": "bun audit --prod",
+    "scan": "bun run scan:audit && bun run scan:cve && bun run scan:dupe",
+    "scan:audit": "bun audit --production",
     "scan:cve": "bunx --bun cve-lite-cli --check-overrides --check-network --check-maintenance --prod-only --only-used",
-    "scan:e18e": "bunx --bun @e18e/cli analyze",
+    "scan:dupe": "bun dedupe --check",
     "test": "bun test --isolate --dots --bail",
     "test:coverage": "bun test --isolate --dots --coverage --coverage-dir ./tests/coverage --coverage-reporter=text --coverage-reporter=lcov --bail",
     "test:coverage:full": "bun test --isolate --coverage --coverage-dir ./tests/coverage --coverage-reporter=text --coverage-reporter=lcov --bail",
@@ -43,27 +43,26 @@
     "*.{json,ts}": "bun run --bun biome ci --no-errors-on-unmatched --error-on-warnings"
   },
   "overrides": {
-    "chalk": "6.0.1",
     "undici-types": "8.12.3"
   },
   "dependencies": {
     "@jarrodek/pluralize": "^1.0.2",
     "@lukeed/ms": "^2.0.2",
-    "@postfmly/logger": "^1.1.15",
+    "@postfmly/logger": "^1.2.4",
     "dayjs": "^1.11.23",
     "envalid": "^8.2.0"
   },
   "devDependencies": {
-    "@postfmly/config": "^1.6.11",
+    "@postfmly/config": "^1.6.13",
     "@postfmly/types": "^1.0.9",
     "bunup": "^0.16.32",
     "husky": "^9.1.7",
     "lcov-total": "^2.1.1",
     "lint-staged": "^17.6.0"
   },
-  "packageManager": "bun@1.4.3",
+  "packageManager": "bun@1.4.4",
   "engines": {
-    "bun": "^1.4.3"
+    "bun": "^1.4.4"
   },
   "engineStrict": true,
   "patchedDependencies": {
