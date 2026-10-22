@@ -7,13 +7,13 @@
       "dependencies": {
         "@jarrodek/pluralize": "^1.0.2",
         "@lukeed/ms": "^2.0.2",
-        "@postfmly/logger": "^1.1.13",
-        "@postfmly/types": "^1.0.9",
+        "@postfmly/logger": "^1.1.15",
         "dayjs": "^1.11.23",
-        "valibot": "^1.5.0",
+        "envalid": "^8.2.0",
       },
       "devDependencies": {
         "@postfmly/config": "^1.6.11",
+        "@postfmly/types": "^1.0.9",
         "bunup": "^0.16.32",
         "husky": "^9.1.7",
         "lcov-total": "^2.1.1",
@@ -89,7 +89,7 @@
 
     "@cspell/dict-companies": ["@cspell/dict-companies@3.2.13", "https://npm.postfmly.com/@cspell/dict-companies/-/dict-companies-3.2.13.tgz", {}, "sha512-mBJeYzCkiiWgNQxKg7zyQOpFPwcXO4IAzXGbOEFfcQ4Q0G5Fa7Kqd8z+gvnvSK7NPWKJaFmiApC6I0cka02qmQ=="],
 
-    "@cspell/dict-cpp": ["@cspell/dict-cpp@7.1.3", "https://npm.postfmly.com/@cspell/dict-cpp/-/dict-cpp-7.1.3.tgz", {}, "sha512-2d2MSh+C+xzzdqjLwtt40TdXWDR/pK0q1Q9L5zC+1EPSCIZxlN7CHbhlXWpl0JqUSdy2xaWaWucwnoGznMTneA=="],
+    "@cspell/dict-cpp": ["@cspell/dict-cpp@7.2.0", "https://npm.postfmly.com/@cspell/dict-cpp/-/dict-cpp-7.2.0.tgz", {}, "sha512-hxz+OyQKV96/Bk2JYGsDuSOheYA5gd8KybXnoZMMu/mhZPnwhPi+qiS0Kjc0gLNbXjJ6wbBuXIQWi1UWpQBU/g=="],
 
     "@cspell/dict-cryptocurrencies": ["@cspell/dict-cryptocurrencies@5.0.5", "https://npm.postfmly.com/@cspell/dict-cryptocurrencies/-/dict-cryptocurrencies-5.0.5.tgz", {}, "sha512-R68hYYF/rtlE6T/dsObStzN5QZw+0aQBinAXuWCVqwdS7YZo0X33vGMfChkHaiCo3Z2+bkegqHlqxZF4TD3rUA=="],
 
@@ -111,9 +111,9 @@
 
     "@cspell/dict-en-common-misspellings": ["@cspell/dict-en-common-misspellings@2.2.5", "https://npm.postfmly.com/@cspell/dict-en-common-misspellings/-/dict-en-common-misspellings-2.2.5.tgz", {}, "sha512-c1bj+HXT8fafxrBT/nmVLwr7ILVomgVSGlWsb2wjJYanqvLJHXkCVmr0sM97F9FJeWQFIgwrRi5MWSYbNQAQ6A=="],
 
-    "@cspell/dict-en-gb-mit": ["@cspell/dict-en-gb-mit@3.1.30", "https://npm.postfmly.com/@cspell/dict-en-gb-mit/-/dict-en-gb-mit-3.1.30.tgz", {}, "sha512-wmsPqPrO+GRfD8iA2jSKzRdEVd46ZbnDttRWM8RC4a8DkeiIanTtIgqX5V23jJibSgpsRVAtY+ktTw2nOK/Yvw=="],
+    "@cspell/dict-en-gb-mit": ["@cspell/dict-en-gb-mit@3.1.32", "https://npm.postfmly.com/@cspell/dict-en-gb-mit/-/dict-en-gb-mit-3.1.32.tgz", {}, "sha512-bEASyTAzXLowmFWrZIJjeAeCpY9g3jcYDO3tVyFDL/UaAuz0UvCVgOEyg+Ym7bclijqvXmj0xXOD/cW2XWG8iw=="],
 
-    "@cspell/dict-en_us": ["@cspell/dict-en_us@4.4.41", "https://npm.postfmly.com/@cspell/dict-en_us/-/dict-en_us-4.4.41.tgz", {}, "sha512-PsfGqN/dSSPpaSl1vKaPI4DHAmgbFITON398YUEvoduDM1mWXnDOL+qBQ/ZjpWs5+aaShPq5c1vpJg8fuQFOQw=="],
+    "@cspell/dict-en_us": ["@cspell/dict-en_us@4.4.43", "https://npm.postfmly.com/@cspell/dict-en_us/-/dict-en_us-4.4.43.tgz", {}, "sha512-RK0zfFXSPi0G/zmV9YgUhS2xw9eTV/8DtQ+ouLIiRZ8ejWRt2zhAonu5di+qmIhzhQ62fg7d3tMz3WwRy82yJA=="],
 
     "@cspell/dict-filetypes": ["@cspell/dict-filetypes@3.0.18", "https://npm.postfmly.com/@cspell/dict-filetypes/-/dict-filetypes-3.0.18.tgz", {}, "sha512-yU7RKD/x1IWmDLzWeiItMwgV+6bUcU/af23uS0+uGiFUbsY1qWV/D4rxlAAO6Z7no3J2z8aZOkYIOvUrJq0Rcw=="],
 
@@ -319,7 +319,7 @@
 
     "@postfmly/config": ["@postfmly/config@1.6.11", "https://npm.postfmly.com/@postfmly/config/-/config-1.6.11.tgz", { "dependencies": { "@biomejs/biome": "^2.6.2", "@types/bun": "^1.4.3", "@types/node": "^26.6.5", "cspell": "^10.4.0", "globals": "^17.13.0" }, "bin": { "link-configs": "bin/link-configs" } }, "sha512-LM9D23tzCa6mZxQ1dDy+/h6ZT/6KepCqrIRtC/e9fJYqSod5HXLFZYMlA9aVnAGbSap63hcAw1YzzrU1uf7pOQ=="],
 
-    "@postfmly/logger": ["@postfmly/logger@1.1.13", "https://npm.postfmly.com/@postfmly/logger/-/logger-1.1.13.tgz", { "dependencies": { "ansis": "^4.4.0", "browser-or-node": "^3.0.0", "dayjs": "^1.11.23", "hex-color-to-color-name": "^2.0.8", "ts-pattern": "^5.9.2" } }, "sha512-VjkEd9pdIFiqJVpkOtfOYsxWA9/Jwp8M6TwyqDsAVoCfZbDT4lorKTcczty3lEQq3i8lNcfFKNG+nahgIFpHCA=="],
+    "@postfmly/logger": ["@postfmly/logger@1.1.15", "https://npm.postfmly.com/@postfmly/logger/-/logger-1.1.15.tgz", { "dependencies": { "ansis": "^4.4.0", "browser-or-node": "^3.0.0", "dayjs": "^1.11.23", "hex-color-to-color-name": "^2.0.8", "ts-pattern": "^5.9.2" } }, "sha512-yXKKRnew6ZdUGAgrlM93vAi/plZJ017R846Q01qUDOJhTYxamuhYX0wmiqkkuELFt/jOZYR7xxsDfTuuGdcwwA=="],
 
     "@postfmly/types": ["@postfmly/types@1.0.9", "https://npm.postfmly.com/@postfmly/types/-/types-1.0.9.tgz", {}, "sha512-4KgqOkSaB0gVnukjTUYNixpz93UtnG3raGBNNcCfFdTutYKw0p76lcuPn+xHsuFr/hsw0gbCBAq9oscyvrUSFw=="],
 
@@ -376,6 +376,8 @@
     "detect-libc": ["detect-libc@2.1.2", "https://npm.postfmly.com/detect-libc/-/detect-libc-2.1.2.tgz", {}, "sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ=="],
 
     "env-paths": ["env-paths@4.0.0", "https://npm.postfmly.com/env-paths/-/env-paths-4.0.0.tgz", { "dependencies": { "is-safe-filename": "^0.1.0" } }, "sha512-pxP8eL2SwwaTRi/KHYwLYXinDs7gL3jxFcBYmEdYfZmZXbaVDvdppd0XBU8qVz03rDfKZMXg1omHCbsJjZrMsw=="],
+
+    "envalid": ["envalid@8.2.0", "https://npm.postfmly.com/envalid/-/envalid-8.2.0.tgz", { "dependencies": { "tslib": "2.8.1" } }, "sha512-CkPvea95dwMYE1wnKX5mQXkOpiMs9O+ncv8NqZy+gW7FuzpUp06KTdUHb18xFG8CqQHmfmRqGLF5DuGaBWNrSw=="],
 
     "esprima": ["esprima@4.0.1", "https://npm.postfmly.com/esprima/-/esprima-4.0.1.tgz", { "bin": { "esparse": "./bin/esparse.js", "esvalidate": "./bin/esvalidate.js" } }, "sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A=="],
 
@@ -468,8 +470,6 @@
     "tslib": ["tslib@2.8.1", "https://npm.postfmly.com/tslib/-/tslib-2.8.1.tgz", {}, "sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w=="],
 
     "undici-types": ["undici-types@8.12.3", "https://npm.postfmly.com/undici-types/-/undici-types-8.12.3.tgz", {}, "sha512-EXE4ydL3S76dFb27UFjNVZHTyv/TLdATj/KUe29ptdcg6qXL48J2tZ3126E5kICj5jn781OR+XlVH1N6Mz8jbA=="],
-
-    "valibot": ["valibot@1.5.0", "https://npm.postfmly.com/valibot/-/valibot-1.5.0.tgz", { "peerDependencies": { "typescript": ">=5" }, "optionalPeers": ["typescript"] }, "sha512-nil6AkP2TChWL43Z5uJ6GTxX01CUA+g8LWUM+N/rB9NBbkUMaUsi9PUNzlUPgoKASgmx9f7eGOYpJ04/fSa6FQ=="],
 
     "vscode-languageserver-textdocument": ["vscode-languageserver-textdocument@1.0.15", "https://npm.postfmly.com/vscode-languageserver-textdocument/-/vscode-languageserver-textdocument-1.0.15.tgz", {}, "sha512-Gsfr9S8LU3S6885cS+NaleasJ0n3V5y/SOTqHCifQiXWFw3G9w9/YItDfwHrlCz+dSZWWZ8ilYVMcJe7Sz7Sxw=="],
 

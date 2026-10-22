@@ -1,6 +1,6 @@
 {
   "name": "@postfmly/checkrate",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Rate limiter",
   "keywords": [
     "rate",
@@ -21,6 +21,8 @@
   "scripts": {
     "build": "bun run --bun bunup",
     "deps": "bunx --bun depcheck --ignores=\"@postfmly/config,@types/*,bun:*,lcov-total\"",
+    "env": "bun run --bun env.ts",
+    "env:test": "NODE_ENV=test bun run --bun env.ts",
     "preinstall": "bunx --bun only-allow bun",
     "lint": "bun run lint:spell && bun run lint:biome && bun run lint:ts",
     "lint:biome": "bun run --bun biome check --write --verbose --reporter=default --reporter=github --error-on-warnings",
@@ -28,8 +30,8 @@
     "lint:ts": "bun check",
     "prepare": "bun run --bun husky",
     "scan": "bun run scan:audit && bun run scan:cve && bun run scan:e18e",
-    "scan:audit": "bun audit",
-    "scan:cve": "bunx --bun cve-lite-cli --check-overrides --check-network --check-maintenance",
+    "scan:audit": "bun audit --prod",
+    "scan:cve": "bunx --bun cve-lite-cli --check-overrides --check-network --check-maintenance --prod-only --only-used",
     "scan:e18e": "bunx --bun @e18e/cli analyze",
     "test": "bun test --isolate --dots --bail",
     "test:coverage": "bun test --isolate --dots --coverage --coverage-dir ./tests/coverage --coverage-reporter=text --coverage-reporter=lcov --bail",
@@ -47,13 +49,13 @@
   "dependencies": {
     "@jarrodek/pluralize": "^1.0.2",
     "@lukeed/ms": "^2.0.2",
-    "@postfmly/logger": "^1.1.13",
-    "@postfmly/types": "^1.0.9",
+    "@postfmly/logger": "^1.1.15",
     "dayjs": "^1.11.23",
-    "valibot": "^1.5.0"
+    "envalid": "^8.2.0"
   },
   "devDependencies": {
     "@postfmly/config": "^1.6.11",
+    "@postfmly/types": "^1.0.9",
     "bunup": "^0.16.32",
     "husky": "^9.1.7",
     "lcov-total": "^2.1.1",

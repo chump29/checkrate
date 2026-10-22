@@ -4,18 +4,19 @@ import { type Optional } from "@postfmly/types"
 import { default as pluralize } from "@jarrodek/pluralize"
 import { parse as ms } from "@lukeed/ms"
 import { default as dayjs } from "dayjs"
-import { integer, number, optional, parse, pipe, toBoolean, unknown } from "valibot"
+
+import { env } from "./env.ts"
 
 interface IBucketConfig {
   /** Show debug logging
    * @default false */
-  readonly DEBUG: Optional<boolean>
+  readonly DEBUG?: boolean
   /** Window size, in seconds
    * @default 1 */
-  readonly INTERVAL: Optional<number>
+  readonly INTERVAL?: number
   /** Maximum number of request per {@link INTERVAL}
    * @default 1 */
-  readonly RATE: Optional<number>
+  readonly RATE?: number
 }
 
 interface IUser {
@@ -44,11 +45,13 @@ class Bucket implements IBucketConfig {
   private readonly STALE_SCALE: number = 5
 
   /** Bucket constructor
-   * @param config The configuration */
-  constructor(config: Partial<IBucketConfig> = {}) {
-    this.DEBUG = parse(optional(pipe(unknown(), toBoolean()), false), config.DEBUG)
-    this.INTERVAL = parse(optional(pipe(number(), integer()), 1), config.INTERVAL)
-    this.RATE = parse(optional(pipe(number(), integer()), 1), config.RATE)
+   * @param config The configuration
+   * @see {@link IBucketConfig}
+   * @default {} */
+  constructor(config: IBucketConfig = {}) {
+    this.DEBUG = config.DEBUG ?? env.DEBUG
+    this.INTERVAL = config.INTERVAL ?? env.INTERVAL
+    this.RATE = config.RATE ?? env.RATE
 
     this.INTERVAL_MS = ms(`${this.INTERVAL}s`)
     this.LIMIT = this.RATE
