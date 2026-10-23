@@ -1,6 +1,6 @@
 {
   "name": "@postfmly/checkrate",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "Rate limiter",
   "keywords": [
     "rate",
@@ -50,11 +50,11 @@
     "@lukeed/ms": "^2.0.2",
     "@postfmly/logger": "^1.2.4",
     "dayjs": "^1.11.23",
-    "envalid": "^8.2.0"
+    "envalid": "^9.0.0"
   },
   "devDependencies": {
     "@postfmly/config": "^1.6.13",
-    "@postfmly/types": "^1.0.9",
+    "@postfmly/types": "^1.0.10",
     "bunup": "^0.16.32",
     "husky": "^9.1.7",
     "lcov-total": "^2.1.1",
