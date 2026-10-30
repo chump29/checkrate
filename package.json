@@ -1,6 +1,6 @@
 {
   "name": "@postfmly/checkrate",
-  "version": "2.0.8",
+  "version": "2.0.10",
   "description": "Rate limiter",
   "keywords": [
     "rate",
@@ -40,7 +40,8 @@
     "updates": "bunx --bun npm-check-updates --dep overrides,prod,dev --cooldown 0 --install never --packageManager bun --peer"
   },
   "lint-staged": {
-    "*.{json,ts}": "bun run --bun biome ci --no-errors-on-unmatched --error-on-warnings"
+    "*": "bun run --bun cspell --dot --no-must-find-files",
+    "*.{json,md,ts}": "bun run --bun biome ci --no-errors-on-unmatched --error-on-warnings"
   },
   "overrides": {
     "undici-types": "8.12.3"
@@ -48,13 +49,13 @@
   "dependencies": {
     "@jarrodek/pluralize": "^1.0.2",
     "@lukeed/ms": "^2.0.2",
-    "@postfmly/logger": "^1.2.4",
+    "@postfmly/logger": "^1.2.5",
     "dayjs": "^1.11.23",
     "envalid": "^9.0.0"
   },
   "devDependencies": {
-    "@postfmly/config": "^1.6.13",
-    "@postfmly/types": "^1.0.10",
+    "@postfmly/config": "^1.6.15",
+    "@postfmly/types": "^1.0.11",
     "bunup": "^0.16.32",
     "husky": "^9.1.7",
     "lcov-total": "^2.1.1",
