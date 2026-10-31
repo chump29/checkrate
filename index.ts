@@ -1,5 +1,4 @@
 import { error, info } from "@postfmly/logger"
-import { type Optional } from "@postfmly/types"
 
 import { default as pluralize } from "@jarrodek/pluralize"
 import { parse as ms } from "@lukeed/ms"
@@ -38,11 +37,11 @@ class Bucket implements IBucketConfig {
 
   private readonly timer: Timer
 
-  private readonly CLEAN_MINS: number = 1
-  private readonly CLEAN_SCALE: number = 2
+  private readonly CLEAN_MINS = 1
+  private readonly CLEAN_SCALE = 2
 
-  private readonly STALE_MINS: number = 5
-  private readonly STALE_SCALE: number = 5
+  private readonly STALE_MINS = 5
+  private readonly STALE_SCALE = 5
 
   /** Bucket constructor
    * @param config The configuration
@@ -70,9 +69,9 @@ class Bucket implements IBucketConfig {
   }
 
   private fill(user: IUser): void {
-    const elapsed: number = dayjs().diff(user.time, "milliseconds")
+    const elapsed = dayjs().diff(user.time, "milliseconds")
     if (elapsed >= this.INTERVAL_MS) {
-      const intervals: number = Math.floor(elapsed / this.INTERVAL_MS)
+      const intervals = Math.floor(elapsed / this.INTERVAL_MS)
 
       user.count = Math.min(this.LIMIT, user.count + intervals * this.RATE)
 
@@ -81,7 +80,7 @@ class Bucket implements IBucketConfig {
   }
 
   private clean(): void {
-    const now: dayjs.Dayjs = dayjs()
+    const now = dayjs()
 
     for (const [username, user] of this.users.entries()) {
       if (now.diff(user.time) > Math.max(ms(`${this.STALE_MINS}m`), this.INTERVAL_MS * this.STALE_SCALE)) {
@@ -94,7 +93,7 @@ class Bucket implements IBucketConfig {
    * @param username The username/key
    * @returns True if request is allowed, false if limit has been reached */
   allow = (username: string): boolean => {
-    let user: Optional<IUser> = this.users.get(username)
+    let user = this.users.get(username)
     if (!user) {
       user = { count: this.LIMIT, time: dayjs() } satisfies IUser
 

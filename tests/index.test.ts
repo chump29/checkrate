@@ -6,7 +6,7 @@ import { Bucket } from "../index.ts"
 spyOn(console, "info").mockImplementation((): void => undefined)
 spyOn(console, "error").mockImplementation((): void => undefined)
 
-const bucket: Bucket = new Bucket()
+const bucket = new Bucket()
 
 describe("checkRate", (): void => {
   test("pass", (): void => {
