@@ -2,7 +2,6 @@ import { error, info } from "@postfmly/logger"
 
 import { default as pluralize } from "@jarrodek/pluralize"
 import { parse as ms } from "@lukeed/ms"
-import { default as dayjs } from "dayjs"
 
 import { env } from "./env.ts"
 
@@ -18,9 +17,9 @@ interface IBucketConfig {
   readonly RATE?: number
 }
 
-interface IUser {
+interface ICache {
   count: number
-  time: dayjs.Dayjs
+  time: Date
 }
 
 /** Limit usage to {@link RATE} request(s) per {@link INTERVAL} second(s)
@@ -33,7 +32,7 @@ class Bucket implements IBucketConfig {
   private readonly INTERVAL_MS: number
   private readonly LIMIT: number
 
-  private readonly users: Map<string, IUser> = new Map<string, IUser>()
+  private readonly cache: Map<string, ICache> = new Map<string, ICache>()
 
   private readonly timer: Timer
 
@@ -68,48 +67,50 @@ class Bucket implements IBucketConfig {
     }
   }
 
-  private fill(user: IUser): void {
-    const elapsed = dayjs().diff(user.time, "milliseconds")
+  private fill(item: ICache): void {
+    const elapsed = Date.now() - item.time.getTime()
     if (elapsed >= this.INTERVAL_MS) {
       const intervals = Math.floor(elapsed / this.INTERVAL_MS)
 
-      user.count = Math.min(this.LIMIT, user.count + intervals * this.RATE)
+      item.count = Math.min(this.LIMIT, item.count + intervals * this.RATE)
 
-      user.time = user.time.add(intervals * this.INTERVAL_MS, "milliseconds")
+      item.time = new Date(item.time.getTime() + intervals * this.INTERVAL_MS)
     }
   }
 
   private clean(): void {
-    const now = dayjs()
+    const now = Date.now()
 
-    for (const [username, user] of this.users.entries()) {
-      if (now.diff(user.time) > Math.max(ms(`${this.STALE_MINS}m`), this.INTERVAL_MS * this.STALE_SCALE)) {
-        this.users.delete(username)
+    const max = Math.max(ms(`${this.STALE_MINS}m`), this.INTERVAL_MS * this.STALE_SCALE)
+
+    for (const [k, v] of this.cache.entries()) {
+      if (now - v.time.getTime() > max) {
+        this.cache.delete(k)
       }
     }
   }
 
   /** Check if request is allowed
-   * @param username The username/key
+   * @param key The key
    * @returns True if request is allowed, false if limit has been reached */
-  allow = (username: string): boolean => {
-    let user = this.users.get(username)
-    if (!user) {
-      user = { count: this.LIMIT, time: dayjs() } satisfies IUser
+  allow = (key: string): boolean => {
+    let item = this.cache.get(key)
+    if (!item) {
+      item = { count: this.LIMIT, time: new Date() } satisfies ICache
 
-      this.users.set(username, user)
+      this.cache.set(key, item)
     }
 
-    this.fill(user)
+    this.fill(item)
 
-    if (user.count >= 1) {
-      user.count -= 1
+    if (item.count >= 1) {
+      item.count -= 1
 
       return true
     }
 
     if (this.DEBUG) {
-      error(`❌ Rate limit exceeded for ${username}`)
+      error(`❌ Rate limit exceeded for ${key}`)
     }
 
     return false

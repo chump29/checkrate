@@ -1,6 +1,6 @@
 # @postfmly/checkrate
 
-### Rate limiter <!-- markdownlint-disable MD001 -->
+### Rate limiter
 
 ---
 
@@ -10,7 +10,7 @@
 ![Coverage](https://img.shields.io/badge/Coverage-100%25-success?style=plastic&logo=jest "Coverage")
 
 ![NO AI](https://img.shields.io/badge/NO-AI-orange?style=plastic "NO AI") &nbsp;
-![License](https://img.shields.io/github/license/$_user/$_repo?style=plastic&color=blueviolet&label=License&logo=gplv3 "GPLv3") &nbsp; <!-- markdownlint-disable MD013 -->
+![License](https://img.shields.io/github/license/$_user/$_repo?style=plastic&color=blueviolet&label=License&logo=gplv3 "GPLv3") &nbsp;
 ![CVE Scan](https://img.shields.io/badge/CVE%20Scan-Pass-success?style=plastic&logo=owasp "CVE Scan")
 
 ---
@@ -28,11 +28,11 @@ bun add @postfmly/checkrate
 ```ts
 import { Bucket, type IBucketConfig } from "@postfmly/checkrate"
 
-const bucket: Bucket = new Bucket({ DEBUG: false, INTERVAL: 1, RATE: 1 } satisfies IBucketConfig)
+const bucket = new Bucket({ DEBUG: false, INTERVAL: 1, RATE: 1 } satisfies IBucketConfig)
 // or
 const bucket = new Bucket() // uses defaults
 
-const result: string = bucket.allow() ? "request successful" : "rate limit exceeded"
+const result = bucket.allow(key) ? "request successful" : "rate limit exceeded"
 ```
 
 ### Environment Variables
